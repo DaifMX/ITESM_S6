@@ -1,0 +1,36 @@
+# === Node / Bun ===
+node_modules/
+.npm
+.yarn/
+.pnp.*
+dist/
+build/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+
+# === Java / Spring Boot ===
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+build/
+
+# === IDE / Editor ===
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# === OS ===
+Thumbs.db
