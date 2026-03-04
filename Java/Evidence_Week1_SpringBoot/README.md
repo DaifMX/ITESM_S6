@@ -1,56 +1,56 @@
-# Evidence Week 1 - Spring Boot & IoC
+# Evidence Week 1 — Spring Boot & IoC
 
-Spring Boot application covering Part 5 of the Java Web Environment exercise: Spring Framework & Inversion of Control. The Servlets, JSP, and MVC portions (Parts 1-4) live in a separate project within this monorepo.
+Spring Boot application covering **Part 5** of the Java Web Environment exercise: Spring Framework & Inversion of Control. Parts 1–4 (Servlets, JSP, MVC with Tomcat) live in [Evidence_Week1_Tomcat](../Evidence_Week1_Tomcat/).
 
-## Prerequisites
+## What It Covers
 
-- JDK 17+
-- Maven
-- VS Code with the following extensions:
-  - Extension Pack for Java
-  - Spring Boot Extension Pack
+### Spring Boot vs. Tomcat (Part 5)
+
+Replaces manual Tomcat deployment + Servlet boilerplate with Spring Boot's embedded server and auto-configuration. No `web.xml`, no WAR packaging — just run the JAR.
+
+### Inversion of Control & Dependency Injection
+
+`MessageService` is annotated with `@Service`, registering it as a Spring-managed bean. `HelloController` receives it via **constructor injection** — Spring resolves and injects the dependency at startup automatically.
+
+| Annotation | Purpose |
+|------------|---------|
+| `@SpringBootApplication` | Enables auto-configuration and component scanning |
+| `@RestController` | Marks the class as a REST endpoint |
+| `@GetMapping` | Maps HTTP GET requests to a handler method |
+| `@Service` | Registers the class as a Spring bean |
+
+### Endpoint
+
+| Route | Behavior |
+|-------|----------|
+| `GET /hello` | Returns a plain-text greeting served by `MessageService` |
 
 ## Project Structure
 
 ```
 src/main/java/net/daifo/evidence_week1_springboot/
-├── EvidenceWeek1SpringBootApplication.java   # Entry point
+├── EvidenceWeek1SpringBootApplication.java   # Entry point (@SpringBootApplication)
 ├── controllers/
-│   └── HelloController.java                  # REST controller
+│   └── HelloController.java                  # REST controller (constructor injection)
 └── services/
-    └── MessageService.java                   # Service bean (IoC)
+    └── MessageService.java                   # @Service bean (IoC demo)
 ```
 
-## What It Covers
+## Prerequisites
 
-### Spring Boot Setup (Part 5)
-
-Replaces the manual Tomcat + Servlet approach with Spring Boot's embedded server and auto-configuration.
-
-### Inversion of Control & Dependency Injection
-
-`MessageService` is annotated with `@Service`, making it a Spring-managed bean. `HelloController` receives it via **constructor injection** — Spring automatically resolves and injects the dependency at startup.
-
-| Annotation        | Purpose                                      |
-|-------------------|----------------------------------------------|
-| `@SpringBootApplication` | Enables auto-configuration and component scanning |
-| `@RestController`        | Marks the class as a REST endpoint                |
-| `@GetMapping`            | Maps HTTP GET requests to a handler method        |
-| `@Service`               | Registers the class as a Spring bean              |
-
-### Endpoint
-
-| Route    | Behavior                                          |
-|----------|---------------------------------------------------|
-| `/hello` | Returns a plain-text greeting from `MessageService` |
+- JDK 17+
+- Maven
+- VS Code extensions (optional):
+  - Extension Pack for Java
+  - Spring Boot Extension Pack
 
 ## Build & Run
 
 ```bash
-# Run directly
+# Run directly via Maven wrapper
 ./mvnw spring-boot:run
 
-# Or package and run the JAR
+# Or build the JAR and run it
 ./mvnw clean package
 java -jar target/Evidence_Week1_SpringBoot-0.0.1-SNAPSHOT.jar
 ```
@@ -59,7 +59,7 @@ Then open: `http://localhost:8080/hello`
 
 ## Tech Stack
 
-- Java 17
-- Spring Boot 4.0
-- Spring Web MVC
-- Maven
+![Java 17](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0-6DB33F?logo=springboot&logoColor=white)
+![Spring MVC](https://img.shields.io/badge/Spring_MVC-6DB33F?logo=spring&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-C71A36?logo=apachemaven&logoColor=white)
