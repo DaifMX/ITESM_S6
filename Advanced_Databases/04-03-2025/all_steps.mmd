@@ -1,0 +1,144 @@
+graph TB
+
+%% ─────────────── NIVEL 0 ───────────────
+    subgraph N0["─── Nivel 0 ───"]
+        S1_Usuario((("Usuario")))
+        S1_Boot((("Boot Telegram")))
+
+        subgraph S1_SG["Oracle boot"]
+            S1_A["Iniciar sesión en Telegram"]
+            S1_B["Indicar tipo de miembro"]
+            S1_C["Agregar actividad"]
+        end
+
+        S1_Usuario --> S1_A
+        S1_Usuario --> S1_B
+        S1_Usuario --> S1_C
+        S1_A --> S1_Boot
+        S1_B --> S1_Boot
+        S1_C --> S1_Boot
+    end
+
+%% ─────────────── NIVEL 1 ───────────────
+    subgraph N1["─── Nivel 1 ───"]
+
+        subgraph S2_SG["Iniciar sesión en Telegram"]
+            S2_Usuario((("Usuario")))
+            S2_Boot((("Boot Telegram")))
+            S2_A["Iniciar sesión en Telegram"]
+            S2_B["Verifica usuario"]
+            S2_C["Verifica contraseña"]
+            S2_D["Recuerda contraseña por correo"]
+        end
+
+        subgraph S3_SG["Indicar tipo de miembro"]
+            S3_Usuario((("Usuario")))
+            S3_Boot((("Boot Telegram")))
+            S3_A["Indicar tipo de miembro"]
+            S3_B["Validar permisos"]
+            S3_C["Listar actividades disponibles"]
+        end
+
+        subgraph S5_SG["Registrar tarea en chat boot"]
+            S5_Usuario((("Usuario")))
+            S5_Boot((("Boot Telegram")))
+            S5_A["Agregar actividad"]
+            S5_B["Asigna a miembro"]
+            S5_C["Prioridad"]
+            S5_D["Fecha Inicio"]
+            S5_E["Fecha fin"]
+        end
+
+        S2_Usuario --> S2_A
+        S2_Boot --> S2_A
+        S2_A -- "«include»" --> S2_B
+        S2_A -- "«include»" --> S2_C
+        S2_D -- "«extend» Si falló 3 veces" --> S2_C
+
+        S3_Usuario --> S3_A
+        S3_Boot --> S3_A
+        S3_A -- "«include»" --> S3_B
+        S3_A -- "«include»" --> S3_C
+
+        S5_Usuario --> S5_A
+        S5_Boot --> S5_A
+        S5_A -. "«include»" .-> S5_B
+        S5_A -. "«include»" .-> S5_C
+        S5_A -. "«include»" .-> S5_D
+        S5_A -. "«include»" .-> S5_E
+    end
+
+%% ─────────────── NIVEL 2 ───────────────
+    subgraph N2["─── Nivel 2 ───"]
+        S4_Miembro((("Miembro")))
+        S4_Gerente((("Gerente")))
+        S4_Admin((("Administrador")))
+        S4_Boot((("Boot Telegram")))
+        S4_G["Exportar a Excel"]
+        S4_H["Asignar backup"]
+
+        subgraph S4_SG["Listar actividades disponibles"]
+            S4_A["Agregar tarea"]
+            S4_B["Listar tareas"]
+            S4_C["Borrar tareas"]
+            S4_D["Asignar tarea"]
+            S4_E["Reiniciar BD"]
+            S4_F["Backup tareas"]
+        end
+
+        S4_Miembro --> S4_A
+        S4_Miembro --> S4_B
+        S4_Miembro --> S4_C
+        S4_Gerente --> S4_A
+        S4_Gerente --> S4_B
+        S4_Gerente --> S4_C
+        S4_Gerente --> S4_D
+        S4_Admin --> S4_E
+        S4_Admin --> S4_F
+        S4_A --> S4_Boot
+        S4_B --> S4_Boot
+        S4_C --> S4_Boot
+        S4_D --> S4_Boot
+        S4_B -. "«extend»" .-> S4_G
+        S4_D -. "«extend»" .-> S4_H
+    end
+
+    N0 ~~~ N1
+    N1 ~~~ N2
+
+%% ─── Estilos Nivel 0 ───
+    style N0 fill:#f0f0f0,stroke:#999,color:#000,font-weight:bold
+    style S1_SG fill:#ffffff,stroke:#333,color:#000
+    style S1_A fill:#ff69b4,stroke:#333,color:#000
+    style S1_B fill:#00ff00,stroke:#333,color:#000
+    style S1_C fill:#40e0d0,stroke:#333,color:#000
+
+%% ─── Estilos Nivel 1 ───
+    style N1 fill:#e8f0fe,stroke:#999,color:#000,font-weight:bold
+    style S2_SG fill:#ffffff,stroke:#333,color:#000
+    style S2_A fill:#ff69b4,stroke:#333,color:#000
+    style S2_B fill:#f5f5f5,stroke:#333,color:#000
+    style S2_C fill:#f5f5f5,stroke:#333,color:#000
+    style S2_D fill:#f5f5f5,stroke:#333,color:#000
+    style S3_SG fill:#ffffff,stroke:#333,color:#000
+    style S3_A fill:#00cc44,stroke:#333,color:#000
+    style S3_B fill:#ffffff,stroke:#333,color:#000,stroke-dasharray: 5 5
+    style S3_C fill:#0000cc,stroke:#333,color:#ffffff
+    style S5_SG fill:#ffffff,stroke:#333,color:#000
+    style S5_A fill:#40e0d0,stroke:#333,color:#000
+    style S5_B fill:#ffffff,stroke:#333,color:#000
+    style S5_C fill:#ffffff,stroke:#333,color:#000
+    style S5_D fill:#ffffff,stroke:#333,color:#000
+    style S5_E fill:#ffffff,stroke:#333,color:#000
+
+%% ─── Estilos Nivel 2 ───
+    style N2 fill:#fff3e0,stroke:#999,color:#000,font-weight:bold
+    style S4_SG fill:#1a1aff,color:#ffffff
+    style S4_A fill:#ffffff,stroke:#333,color:#000
+    style S4_B fill:#ffffff,stroke:#333,color:#000
+    style S4_C fill:#ffffff,stroke:#333,color:#000
+    style S4_D fill:#ffffff,stroke:#333,color:#000
+    style S4_E fill:#ffffff,stroke:#333,color:#000
+    style S4_F fill:#ffffff,stroke:#333,color:#000
+    style S4_G fill:#ffffff,stroke:#333,color:#000
+    style S4_H fill:#ffffff,stroke:#333,color:#000

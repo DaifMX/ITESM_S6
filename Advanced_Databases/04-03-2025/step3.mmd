@@ -1,0 +1,23 @@
+graph TD
+    NIVEL["Nivel 1"]
+    Usuario((("Usuario")))
+    Boot((("Boot Telegram")))
+
+    subgraph "Indicar tipo de miembro"
+        A["Indicar tipo de miembro"]
+        B["Validar permisos"]
+        C["Listar actividades disponibles"]
+    end
+
+    Usuario --> A
+    Boot --> A
+
+    A -- "«include»" --> B
+    A -- "«include»" --> C
+
+    Boot ~~~ NIVEL
+
+    style NIVEL fill:#fffacd,stroke:#aaa,color:#333,font-weight:bold
+    style A fill:#00cc44,stroke:#333,color:#000
+    style B fill:#ffffff,stroke:#333,color:#000,stroke-dasharray: 5 5
+    style C fill:#0000cc,stroke:#333,color:#ffffff

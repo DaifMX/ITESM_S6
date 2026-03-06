@@ -1,0 +1,30 @@
+graph TD
+    NIVEL["Nivel 1"]
+    Usuario((("Usuario")))
+    Boot((("Boot Telegram")))
+
+    subgraph SG["Registrar tarea en chat boot"]
+        A["Agregar actividad"]
+        B["Asigna a miembro"]
+        C["Prioridad"]
+        D["Fecha Inicio"]
+        E["Fecha fin"]
+    end
+
+    Usuario --> A
+    Boot --> A
+
+    A -. "«include»" .-> B
+    A -. "«include»" .-> C
+    A -. "«include»" .-> D
+    A -. "«include»" .-> E
+
+    Boot ~~~ NIVEL
+
+    style NIVEL fill:#fffacd,stroke:#aaa,color:#333,font-weight:bold
+    style SG fill:#ffffff,stroke:#333,color:#000
+    style A fill:#40e0d0,stroke:#333,color:#000
+    style B fill:#ffffff,stroke:#333,color:#000
+    style C fill:#ffffff,stroke:#333,color:#000
+    style D fill:#ffffff,stroke:#333,color:#000
+    style E fill:#ffffff,stroke:#333,color:#000

@@ -1,0 +1,58 @@
+graph LR
+    NIVEL["Nivel 2"]
+
+    subgraph LS[ ]
+        Miembro((("Miembro")))
+        Gerente((("Gerente")))
+        Administrador((("Administrador")))
+    end
+
+    subgraph SG["Listar actividades disponibles"]
+        A["Agregar tarea"]
+        B["Listar tareas"]
+        C["Borrar tareas"]
+        D["Asignar tarea"]
+        E["Reiniciar BD"]
+        F["Backup tareas"]
+    end
+
+    subgraph RS[ ]
+        Boot((("Boot Telegram")))
+        G["Exportar a Excel"]
+        H["Asignar backup"]
+    end
+
+    Miembro --> A
+    Miembro --> B
+    Miembro --> C
+
+    Gerente --> A
+    Gerente --> B
+    Gerente --> C
+    Gerente --> D
+
+    Administrador --> E
+    Administrador --> F
+
+    A --> Boot
+    B --> Boot
+    C --> Boot
+    D --> Boot
+
+    B -. "«extend»" .-> G
+    D -. "«extend»" .-> H
+
+    NIVEL ~~~ RS
+
+    style NIVEL fill:#fffacd,stroke:#aaa,color:#333,font-weight:bold
+    style LS fill:transparent,stroke:transparent
+    style RS fill:transparent,stroke:transparent
+    style SG fill:#1a1aff,color:#ffffff
+    style A fill:#ffffff,stroke:#333,color:#000
+    style B fill:#ffffff,stroke:#333,color:#000
+    style C fill:#ffffff,stroke:#333,color:#000
+    style D fill:#ffffff,stroke:#333,color:#000
+    style E fill:#ffffff,stroke:#333,color:#000
+    style F fill:#ffffff,stroke:#333,color:#000
+    style G fill:#ffffff,stroke:#333,color:#000
+    style H fill:#ffffff,stroke:#333,color:#000
