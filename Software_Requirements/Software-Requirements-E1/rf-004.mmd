@@ -1,0 +1,42 @@
+graph TB
+    subgraph Actors
+        Manager(["👔 Manager"])
+        System(["⚙️ System"])
+        DB(["🗄️ Oracle Autonomous DB"])
+        Dashboard(["📊 KPI Dashboard"])
+    end
+
+    subgraph KPI["📈 KPI Tracking Productivity — RF-004"]
+        UC1(["Collect task data"])
+        UC2(["Calculate task completion rate"])
+        UC3(["Calculate average task time"])
+        UC4(["Calculate sprint velocity"])
+        UC5(["Update KPI data in database"])
+        UC6(["Display KPI metrics & graphs"])
+        UC7(["View KPIs over time"])
+
+        UC8(["Display no data message\n(no tasks available)"])
+        UC9(["Log error & display last\nknown values (calculation failure)"])
+        UC10(["Interrupt calculation &\ndisplay error (data retrieval failure)"])
+    end
+
+    Manager --> UC7
+    System --> UC1
+
+    UC1 -->|include| UC2
+    UC1 -->|include| UC3
+    UC1 -->|include| UC4
+    UC2 -->|include| UC5
+    UC3 -->|include| UC5
+    UC4 -->|include| UC5
+    UC5 -->|include| UC6
+    UC6 --> UC7
+
+    UC1 -->|extend| UC8
+    UC5 -->|extend| UC9
+    UC1 -->|extend| UC10
+
+    UC1 --- DB
+    UC5 --- DB
+    UC6 --- Dashboard
+    UC7 --- Manager

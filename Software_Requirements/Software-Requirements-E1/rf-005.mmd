@@ -1,0 +1,34 @@
+graph TB
+    subgraph Actors
+        Developer(["👨‍💻 Developer"])
+        DB(["🗄️ Oracle Autonomous DB"])
+        NotifSystem(["🔔 Notification System"])
+    end
+
+    subgraph System["💻 Developer Dashboard — RF-005"]
+        UC1(["Log into the system"])
+        UC2(["Verify developer role"])
+        UC3(["Redirect to Developer Dashboard"])
+        UC4(["View assigned tasks"])
+        UC5(["View task deadlines & status"])
+        UC6(["View personal KPI graphs"])
+        UC7(["Update task status"])
+        UC8(["Save status changes"])
+
+        UC9(["Display no tasks available message"])
+    end
+
+    Developer --> UC1
+    UC1 -->|include| UC2
+    UC2 -->|include| UC3
+    UC3 -->|include| UC4
+    UC4 -->|include| UC5
+    UC4 -->|include| UC6
+    UC4 --> UC7
+    UC7 -->|include| UC8
+
+    UC4 -->|extend| UC9
+
+    UC4 --- DB
+    UC8 --- DB
+    UC6 --- DB

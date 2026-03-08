@@ -1,0 +1,37 @@
+graph TB
+    subgraph Actors
+        Manager(["👔 Manager"])
+        Developer(["👨‍💻 Developer"])
+        DB(["🗄️ Oracle Autonomous DB"])
+        NotifSystem(["🔔 Notification System"])
+    end
+
+    subgraph System["📋 Task Management — RF-002"]
+        UC1(["Access task management section"])
+        UC2(["Create new task"])
+        UC3(["Assign task to team member(s)"])
+        UC4(["Edit existing task"])
+        UC5(["Delete task"])
+        UC6(["Save task to database"])
+        UC7(["Send notification to assigned members"])
+
+        UC8(["Show validation error\n(missing required fields)"])
+        UC9(["Prevent assignment &\nnotify manager (inactive member)"])
+        UC10(["Show error & discard task\n(database error)"])
+    end
+
+    Manager --> UC1
+    UC1 --> UC2
+    UC1 --> UC4
+    UC1 --> UC5
+    UC2 -->|include| UC3
+    UC3 -->|include| UC6
+    UC6 -->|include| UC7
+
+    UC2 -->|extend| UC8
+    UC3 -->|extend| UC9
+    UC6 -->|extend| UC10
+
+    UC7 --- Developer
+    UC6 --- DB
+    UC7 --- NotifSystem

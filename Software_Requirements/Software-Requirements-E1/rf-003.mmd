@@ -1,0 +1,31 @@
+graph TB
+    subgraph Actors
+        Manager(["👔 Manager"])
+        DB(["🗄️ Oracle Autonomous DB"])
+        Dashboard(["📊 Dashboard"])
+    end
+
+    subgraph System["🏃 Sprint Automation — RF-003"]
+        UC1(["Access sprint management section"])
+        UC2(["Create new sprint"])
+        UC3(["Define start and end date"])
+        UC4(["Link tasks to sprint"])
+        UC5(["Calculate sprint progress percentage"])
+        UC6(["Display progress on dashboard"])
+
+        UC7(["Show error & prevent creation\n(invalid dates)"])
+        UC8(["Display 0% progress\n(no tasks linked)"])
+    end
+
+    Manager --> UC1
+    UC1 --> UC2
+    UC2 -->|include| UC3
+    UC3 -->|include| UC4
+    UC4 -->|include| UC5
+    UC5 -->|include| UC6
+
+    UC3 -->|extend| UC7
+    UC4 -->|extend| UC8
+
+    UC5 --- DB
+    UC6 --- Dashboard
