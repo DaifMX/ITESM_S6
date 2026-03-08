@@ -1,0 +1,40 @@
+graph TB
+    subgraph Actors
+        User(["👤 Authenticated User"])
+        BotFather(["🤖 BotFather / Telegram"])
+        Backend(["⚙️ Backend REST API"])
+        AuthSystem(["🔑 Auth System"])
+    end
+
+    subgraph System["🤖 Telegram ChatBot System — RF-007"]
+        UC1(["Start chat with bot"])
+        UC2(["Authenticate via secure token"])
+        UC3(["Send /tasks command"])
+        UC4(["Send /sprint command"])
+        UC5(["Send /kpi command"])
+        UC6(["Receive formatted response"])
+        UC7(["Receive sprint reminders"])
+
+        UC8(["Show help message\n(unrecognized command)"])
+        UC9(["Notify service unavailable"])
+        UC10(["Deny access & prompt auth"])
+    end
+
+    User --> UC1
+    User --> UC3
+    User --> UC4
+    User --> UC5
+
+    UC1 -->|include| UC2
+    UC3 -->|include| UC6
+    UC4 -->|include| UC6
+    UC5 -->|include| UC6
+
+    UC3 -->|extend| UC8
+    UC2 -->|extend| UC10
+    UC6 -->|extend| UC9
+
+    UC2 --- AuthSystem
+    UC6 --- Backend
+    UC7 --- User
+    BotFather --- UC1

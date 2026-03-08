@@ -1,0 +1,39 @@
+graph TB
+    subgraph Actors
+        Developer(["👨‍💻 Developer"])
+        Pipeline(["🔄 CI/CD Pipeline"])
+        Registry(["📦 OCI Container Registry"])
+        Kubernetes(["☸️ Kubernetes Cluster"])
+    end
+
+    subgraph System["🚀 Sprint Lifecycle Automation — RF-009"]
+        UC1(["Push code to repository"])
+        UC2(["Trigger CI/CD pipeline"])
+        UC3(["Build application"])
+        UC4(["Run automated tests"])
+        UC5(["Create Docker image"])
+        UC6(["Store image in OCI Registry"])
+        UC7(["Deploy to Kubernetes cluster"])
+        UC8(["Log deployment status"])
+
+        UC9(["Stop pipeline notify team on test failure"])
+        UC10(["Halt deployment log registry push error"])
+        UC11(["Rollback to last stable\nversion & alert team"])
+    end
+
+    Developer --> UC1
+    UC1 -->|include| UC2
+    UC2 -->|include| UC3
+    UC3 -->|include| UC4
+    UC4 -->|include| UC5
+    UC5 -->|include| UC6
+    UC6 -->|include| UC7
+    UC7 -->|include| UC8
+
+    UC4 -->|extend| UC9
+    UC6 -->|extend| UC10
+    UC7 -->|extend| UC11
+
+    UC2 --- Pipeline
+    UC6 --- Registry
+    UC7 --- Kubernetes

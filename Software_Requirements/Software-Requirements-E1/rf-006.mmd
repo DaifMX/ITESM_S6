@@ -1,0 +1,41 @@
+graph TD
+    subgraph System["🖥️ Manager Dashboard System"]
+        UC1["🔐 Authenticate as Manager"]
+        UC2["📊 View Manager Dashboard"]
+        UC3["📋 View All Team Tasks"]
+        UC4["🏃 View Sprint Status"]
+        UC5["📈 View Team-Level KPI Charts"]
+        UC6["👤 View Individual Member KPI Charts"]
+        UC7["⚠️ Handle Empty Team State"]
+        UC8["📭 Display No Data Placeholder"]
+        UC9["🔄 Auto-Refresh Dashboard Data"]
+        UC10["🔒 Re-authenticate on Session Expiry"]
+    end
+
+    Manager(["👔 Manager"])
+    System_Auth(["🔑 Auth System"])
+    DB(["🗄️ Oracle DB"])
+
+    Manager --> UC1
+    Manager --> UC2
+    Manager --> UC3
+    Manager --> UC4
+    Manager --> UC5
+    Manager --> UC6
+
+    UC1 --> UC2
+    UC2 -->|include| UC3
+    UC2 -->|include| UC4
+    UC2 -->|include| UC5
+    UC2 -->|include| UC6
+    UC2 -->|include| UC9
+
+    UC2 -->|extend| UC7
+    UC2 -->|extend| UC8
+    UC1 -->|extend| UC10
+
+    UC1 --- System_Auth
+    UC3 --- DB
+    UC4 --- DB
+    UC5 --- DB
+    UC6 --- DB

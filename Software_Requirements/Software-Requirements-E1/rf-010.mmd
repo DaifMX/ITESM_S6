@@ -1,0 +1,34 @@
+graph TB
+    subgraph Actors
+        Developer(["👨‍💻 Developer"])
+        Manager(["👔 Manager"])
+        DB(["🗄️ Oracle Autonomous DB"])
+    end
+
+    subgraph System["🧠 Intelligent Workload & Focus View — RF-010"]
+        UC1(["Navigate to Workload View"])
+        UC2(["Retrieve assigned tasks"])
+        UC3(["Calculate priority scores"])
+        UC4(["Display ranked task list"])
+        UC5(["Display workload\ndistribution chart"])
+        UC6(["View estimated vs\nactual time per task"])
+
+        UC7(["Show empty state &\nprompt manager to assign tasks"])
+        UC8(["Prioritize by deadline only\n& notify missing sprint context"])
+        UC9(["Flag task as incomplete &\nprompt to contact manager"])
+    end
+
+    Developer --> UC1
+    UC1 -->|include| UC2
+    UC2 -->|include| UC3
+    UC3 -->|include| UC4
+    UC3 -->|include| UC5
+    UC4 -->|include| UC6
+
+    UC2 -->|extend| UC7
+    UC3 -->|extend| UC8
+    UC6 -->|extend| UC9
+
+    UC2 --- DB
+    UC3 --- DB
+    UC7 --- Manager
