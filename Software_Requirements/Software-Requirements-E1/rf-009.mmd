@@ -1,39 +1,31 @@
-graph TB
-    subgraph Actors
-        Developer(["👨‍💻 Developer"])
-        Pipeline(["🔄 CI/CD Pipeline"])
-        Registry(["📦 OCI Container Registry"])
-        Kubernetes(["☸️ Kubernetes Cluster"])
+flowchart LR
+    U[Authorized User]
+    M[Manager]
+
+    subgraph System["Project Reporting System"]
+        UC1((Generate report))
+        UC2((Select project / sprint / date range))
+        UC3((Filter report data))
+        UC4((Compile data from database))
+        UC5((Generate report file))
+        UC6((Download report))
+        UC7((Validate user authorization))
+        UC8((Display access denied))
+        UC9((Generate empty report))
     end
 
-    subgraph System["🚀 Sprint Lifecycle Automation — RF-009"]
-        UC1(["Push code to repository"])
-        UC2(["Trigger CI/CD pipeline"])
-        UC3(["Build application"])
-        UC4(["Run automated tests"])
-        UC5(["Create Docker image"])
-        UC6(["Store image in OCI Registry"])
-        UC7(["Deploy to Kubernetes cluster"])
-        UC8(["Log deployment status"])
+    U --> UC1
+    M --> UC1
+    U --> UC6
+    M --> UC6
 
-        UC9(["Stop pipeline notify team on test failure"])
-        UC10(["Halt deployment log registry push error"])
-        UC11(["Rollback to last stable\nversion & alert team"])
-    end
+    UC1 -. «include» .-> UC2
+    UC1 -. «include» .-> UC3
+    UC1 -. «include» .-> UC4
+    UC1 -. «include» .-> UC5
+    UC1 -. «include» .-> UC7
 
-    Developer --> UC1
-    UC1 -->|include| UC2
-    UC2 -->|include| UC3
-    UC3 -->|include| UC4
-    UC4 -->|include| UC5
-    UC5 -->|include| UC6
-    UC6 -->|include| UC7
-    UC7 -->|include| UC8
+    UC6 -. «include» .-> UC5
 
-    UC4 -->|extend| UC9
-    UC6 -->|extend| UC10
-    UC7 -->|extend| UC11
-
-    UC2 --- Pipeline
-    UC6 --- Registry
-    UC7 --- Kubernetes
+    UC8 -. «extend» .-> UC7
+    UC9 -. «extend» .-> UC5
