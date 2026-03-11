@@ -1,40 +1,48 @@
-graph LR
-    Client(["💻 Client Application"])
-    Gateway(["🔀 API Gateway"])
-    AuthSystem(["🔑 JWT Auth System"])
-    DB(["🗄️ Oracle Autonomous DB"])
-
-    subgraph System["⚙️ RESTful Microservices System — RF-008"]
-        UC1(["Send HTTPS Request"])
-        UC2(["Validate JWT Token"])
-        UC3(["Route Request"])
-        UC8(["Return HTTP Response"])
-
-        subgraph Microservices["Microservices"]
-            UC4(["Process Task"])
-            UC5(["Process Sprint"])
-            UC6(["Process User"])
-            UC7(["Process KPI"])
-        end
-
-        UC9(["401 Unauthorized"])
-        UC10(["404 Not Found"])
-        UC11(["503 Service Unavailable"])
+flowchart LR
+    subgraph Actors["Actors"]
+        U[👤 User]
+        M[🗂️ Manager]
+        D[💻 Developer]
     end
 
-    Client --> UC1
-    UC1 -->|include| UC2
-    UC2 -->|include| UC3
-    Gateway --> UC2
-    Gateway --> UC3
+    subgraph System["🐛 Bug Reporting and Tracking System"]
+        direction TB
 
-    UC3 --> Microservices
-    Microservices -->|include| UC8
-    UC8 --- Gateway
+        subgraph Reporting["Reporting"]
+            UC1((Report Bug))
+            UC2((Fill Bug Details))
+            UC8((Validate Required Fields))
+            UC6((Store Bug in Database))
+        end
 
-    UC2 -->|extend| UC9
-    UC3 -->|extend| UC11
-    Microservices -->|extend| UC10
+        subgraph Management["Management"]
+            UC3((Set Priority Level))
+            UC4((Assign Bug to Developer))
+            UC9((Reassign Bug))
+        end
 
-    UC2 --- AuthSystem
-    Microservices --- DB
+        subgraph Tracking["Tracking"]
+            UC5((Track Bug Status))
+            UC10((Record Status History))
+            UC7((Notify Developer))
+        end
+    end
+
+    %% Actor → Use Case
+    U  -->|initiates| UC1
+    U  -->|fills| UC2
+    U  -->|views| UC5
+    M  -->|sets| UC3
+    M  -->|assigns| UC4
+    M  -->|reassigns| UC9
+    D  -->|tracks| UC5
+
+    %% Use Case → Use Case (include / extend)
+    UC1 -->|includes| UC2
+    UC1 -->|includes| UC8
+    UC1 -->|includes| UC6
+    UC3 -.->|extends| UC1
+    UC4 -.->|extends| UC1
+    UC4 -->|triggers| UC7
+    UC5 -->|logs| UC10
+    UC9 -->|triggers| UC7
