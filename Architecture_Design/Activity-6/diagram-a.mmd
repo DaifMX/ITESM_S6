@@ -1,0 +1,52 @@
+flowchart LR
+    subgraph CLIENTS["Presentation Layer"]
+        WEB["Web App\nReact / HLS.js"]
+        MOB["Mobile App iOS / Android"]
+        PROD["Producer Panel\nDashboard / OBS"]
+        ADMIN["Admin Portal\nModeration / Stats"]
+    end
+
+    subgraph GATEWAY["API Gateway Layer"]
+        GW["API Gateway\nAuth · Rate Limiting\nRouting · Audit Trail"]
+    end
+
+    subgraph LOGIC["Business Logic Layer"]
+        STREAM["Stream Service\nIngest · ABR · CDN"]
+        INTERACT["Interaction Service\nChat · Reactions"]
+        ACCESS["Access Service\nAuth · Payments"]
+        ANALYTICS["Analytics Service\nEngagement · Drop-off"]
+    end
+
+    subgraph DATA["Data & Infrastructure Layer"]
+        DB[("Primary DB\nUsers · Events · VOD")]
+        CACHE[("Redis Cache\nSessions · Hot data")]
+        QUEUE[/"Message Queue\nChat fan-out"/]
+        CDN["CDN / Object Storage\nHLS Segments · VOD"]
+    end
+
+    subgraph EXTERNAL["External Integrations"]
+        PAY["Payment Gateway"]
+        CMS["CMS Platform"]
+        LEAGUE["Sports League API"]
+        AUTHP["Identity Provider"]
+    end
+
+    WEB & MOB & PROD & ADMIN --> GW
+
+    GW --> STREAM
+    GW --> INTERACT
+    GW --> ACCESS
+    GW --> ANALYTICS
+
+    STREAM --> DB
+    STREAM --> CDN
+    INTERACT --> QUEUE
+    INTERACT --> CACHE
+    ACCESS --> DB
+    ACCESS --> CACHE
+    ANALYTICS --> DB
+
+    ACCESS --> PAY
+    STREAM --> CMS
+    ANALYTICS --> LEAGUE
+    GW --> AUTHP
