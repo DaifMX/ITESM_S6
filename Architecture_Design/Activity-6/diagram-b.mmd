@@ -1,0 +1,15 @@
+flowchart TD
+    MAIN["MAIN PROGRAM Stream Orchestrator Event loop · coordinates all subroutines"]
+
+    MAIN --> INGEST["Subroutine: Ingest Receive RTMP feed from producer"]
+    MAIN --> TRANSCODE["Subroutine: Transcode Convert to multiple bitrate renditions"]
+    MAIN --> SEGMENT["Subroutine: Segment Split into HLS chunks · .m3u8 playlist"]
+    MAIN --> DISTRIBUTE["Subroutine: Distribute Push segments to CDN edge nodes"]
+    MAIN --> MONITOR["Subroutine: Monitor Check latency · viewer count · stream health"]
+
+    INGEST --> |"raw stream"| TRANSCODE
+    TRANSCODE --> |"360p · 720p · 1080p"| SEGMENT
+    SEGMENT --> |"HLS chunks"| DISTRIBUTE
+    MONITOR --> |"health signal"| MAIN
+
+    MAIN --> ARCHIVE["Subroutine: Archive Write completed event to VOD storage"]
