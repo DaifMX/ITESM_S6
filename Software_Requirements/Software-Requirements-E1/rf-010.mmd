@@ -1,34 +1,32 @@
-graph TB
-    subgraph Actors
-        Developer(["👨‍💻 Developer"])
-        Manager(["👔 Manager"])
-        DB(["🗄️ Oracle Autonomous DB"])
+flowchart LR
+    Manager[Manager]
+    Developer[Developer]
+
+    subgraph Backlog_Management
+        ViewBacklog((View Backlog))
+        CreateTask((Create Task))
+        ShowAvailable((Show Available Tasks))
+        AssignTask((Assign Task))
+        SelfAssign((Self Assign Task))
+        ValidateRole((Validate Role))
+        ValidateAvailability((Validate Availability))
+        SaveAssignment((Save Assignment))
     end
 
-    subgraph System["🧠 Intelligent Workload & Focus View — RF-010"]
-        UC1(["Navigate to Workload View"])
-        UC2(["Retrieve assigned tasks"])
-        UC3(["Calculate priority scores"])
-        UC4(["Display ranked task list"])
-        UC5(["Display workload\ndistribution chart"])
-        UC6(["View estimated vs\nactual time per task"])
+    Manager -->|views| ViewBacklog
+    Developer -->|views| ViewBacklog
 
-        UC7(["Show empty state &\nprompt manager to assign tasks"])
-        UC8(["Prioritize by deadline only\n& notify missing sprint context"])
-        UC9(["Flag task as incomplete &\nprompt to contact manager"])
-    end
+    ViewBacklog --> ShowAvailable
 
-    Developer --> UC1
-    UC1 -->|include| UC2
-    UC2 -->|include| UC3
-    UC3 -->|include| UC4
-    UC3 -->|include| UC5
-    UC4 -->|include| UC6
+    Manager --> CreateTask
+    Manager --> AssignTask
 
-    UC2 -->|extend| UC7
-    UC3 -->|extend| UC8
-    UC6 -->|extend| UC9
+    Developer --> SelfAssign
 
-    UC2 --- DB
-    UC3 --- DB
-    UC7 --- Manager
+    AssignTask --> ValidateRole
+    AssignTask --> ValidateAvailability
+    AssignTask --> SaveAssignment
+
+    SelfAssign --> ValidateRole
+    SelfAssign --> ValidateAvailability
+    SelfAssign --> SaveAssignment

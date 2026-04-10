@@ -1,48 +1,21 @@
 flowchart LR
-    subgraph Actors["Actors"]
-        U[👤 User]
-        M[🗂️ Manager]
-        D[💻 Developer]
+    User["User (Developer / Manager)"]
+
+    subgraph Kanban_Task_Management
+        ViewBoard((View Kanban Board))
+        ShowColumns((Display Columns))
+        ShowTaskInfo((Display Task Info))
+        MoveTask((Move Task))
+        ValidateMove((Validate Movement))
+        UpdateStatus((Update Status))
+        SaveChanges((Save Changes))
     end
 
-    subgraph System["🐛 Bug Reporting and Tracking System"]
-        direction TB
+    User -->|views| ViewBoard
+    ViewBoard --> ShowColumns
+    ViewBoard --> ShowTaskInfo
 
-        subgraph Reporting["Reporting"]
-            UC1((Report Bug))
-            UC2((Fill Bug Details))
-            UC8((Validate Required Fields))
-            UC6((Store Bug in Database))
-        end
-
-        subgraph Management["Management"]
-            UC3((Set Priority Level))
-            UC4((Assign Bug to Developer))
-            UC9((Reassign Bug))
-        end
-
-        subgraph Tracking["Tracking"]
-            UC5((Track Bug Status))
-            UC10((Record Status History))
-            UC7((Notify Developer))
-        end
-    end
-
-    %% Actor → Use Case
-    U  -->|initiates| UC1
-    U  -->|fills| UC2
-    U  -->|views| UC5
-    M  -->|sets| UC3
-    M  -->|assigns| UC4
-    M  -->|reassigns| UC9
-    D  -->|tracks| UC5
-
-    %% Use Case → Use Case (include / extend)
-    UC1 -->|includes| UC2
-    UC1 -->|includes| UC8
-    UC1 -->|includes| UC6
-    UC3 -.->|extends| UC1
-    UC4 -.->|extends| UC1
-    UC4 -->|triggers| UC7
-    UC5 -->|logs| UC10
-    UC9 -->|triggers| UC7
+    User -->|drag & drop| MoveTask
+    MoveTask --> ValidateMove
+    MoveTask --> UpdateStatus
+    UpdateStatus --> SaveChanges
