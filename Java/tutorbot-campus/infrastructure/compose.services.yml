@@ -1,0 +1,29 @@
+version: '3.9'
+
+# Runs the two microservices and attaches them to the existing dev infrastructure network.
+# Start the dev stack first: docker compose -f docker-compose.dev.yml up -d
+# Then: docker compose -f compose.services.yml up --build
+
+networks:
+  default:
+    name: infrastructure_default
+    external: true
+
+services:
+  evaluator-service:
+    build:
+      context: ../backend/evaluator-service
+    container_name: tutorbot-evaluator
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - '8082:8082'
+
+  gap-detector-service:
+    build:
+      context: ../backend/gap-detector-service
+    container_name: tutorbot-gap-detector
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - '8084:8084'
