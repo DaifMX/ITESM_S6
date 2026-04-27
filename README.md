@@ -21,7 +21,7 @@ Monorepo for 6th semester coursework at Tecnológico de Monterrey. Each director
 | [Advanced_Databases](Advanced_Databases/) | Database design and advanced SQL |
 | [Architecture_Design](Architecture_Design/) | Software design patterns — Creational, Structural, and Behavioral (GoF) |
 | [DevOps](DevOps/) | DevOps tooling and practices |
-| [ITESM_Oracle_OCI](ITESM_Oracle_OCI/) | Oracle Cloud Infrastructure exercises |
+| [ITESM_Oracle_OCI](https://github.com/DaifMX/ITESM_Oracle_OCI) | Oracle Cloud Infrastructure exercises |
 | [Java](Java/) | Java web ecosystem — Servlets, Spring Boot, reactive APIs, OOP fundamentals |
 | [Linux](Linux/) | Linux scripting and shell utilities |
 | [Software_Requirements](Software_Requirements/) | Requirements engineering and specification |
