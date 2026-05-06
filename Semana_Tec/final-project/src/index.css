@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-white;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .art-gradient-1 { background: linear-gradient(135deg, #0f0c29, #302b63, #c94b4b); }
+  .art-gradient-2 { background: linear-gradient(135deg, #0d0d0d, #1a0000, #8b0000, #c0392b); }
+  .art-gradient-3 { background: linear-gradient(135deg, #000428, #004e92, #1abc9c); }
+  .art-gradient-4 { background: radial-gradient(ellipse at 30% 70%, #1e3c72, #2a5298, #000000); }
+  .art-gradient-5 { background: linear-gradient(135deg, #0a0a0a, #1a3a1a, #27ae60); }
+  .art-gradient-6 { background: linear-gradient(135deg, #1a1a1a, #6c0000, #e74c3c, #f39c12); }
+  .art-gradient-7 { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+  .art-gradient-8 { background: radial-gradient(ellipse at 70% 30%, #4a0000, #000000, #1a4a1a); }
+}

@@ -1,0 +1,68 @@
+import type { Artwork } from '../types';
+
+export const mockArtworks: Artwork[] = [
+  {
+    id: '1',
+    gradient: 'art-gradient-1',
+    prompt: 'Un estadio vacío en llamas bajo un cielo violeta, donde las cenizas forman siluetas de jugadores; el silencio grita más que la multitud.',
+    createdAt: '2025-04-18',
+    incidentType: 'cancha',
+    location: 'Estadio Azteca, CDMX',
+  },
+  {
+    id: '2',
+    gradient: 'art-gradient-2',
+    prompt: 'Una red de fútbol tejida con palabras de odio que se disuelven en mariposas de colores al contacto con la luz.',
+    createdAt: '2025-04-20',
+    incidentType: 'redes_sociales',
+    location: 'Twitter / X',
+  },
+  {
+    id: '3',
+    gradient: 'art-gradient-3',
+    prompt: 'Manos de múltiples tonalidades extendidas formando un escudo ante una tormenta de letras oscuras que se fragmentan.',
+    createdAt: '2025-04-22',
+    incidentType: 'gradas',
+    location: 'Estadio Santiago Bernabéu, Madrid',
+  },
+  {
+    id: '4',
+    gradient: 'art-gradient-4',
+    prompt: 'Un árbol cuyas raíces son cantos de insultos pero cuyas flores son banderas del mundo unidas en un solo tronco luminoso.',
+    createdAt: '2025-04-25',
+    incidentType: 'gradas',
+    location: 'Estadio BBVA, Monterrey',
+  },
+  {
+    id: '5',
+    gradient: 'art-gradient-5',
+    prompt: 'El balón de fútbol como planeta: en un hemisferio la oscuridad del odio, en el otro la danza perpetua de la diversidad.',
+    createdAt: '2025-04-27',
+    incidentType: 'cancha',
+    location: 'Estadio Olímpico, Barcelona',
+  },
+  {
+    id: '6',
+    gradient: 'art-gradient-6',
+    prompt: 'Retrato fragmentado en mil piezas: cada fragmento oscuro se convierte en semilla de luz dorada al caer al suelo de hierba verde.',
+    createdAt: '2025-04-29',
+    incidentType: 'redes_sociales',
+    location: 'Instagram',
+  },
+  {
+    id: '7',
+    gradient: 'art-gradient-7',
+    prompt: 'Un laberinto dibujado con líneas de campo de fútbol donde al centro hay un jardín de infinitos colores y ninguna salida.',
+    createdAt: '2025-05-01',
+    incidentType: 'cancha',
+    location: 'Estadio Akron, Guadalajara',
+  },
+  {
+    id: '8',
+    gradient: 'art-gradient-8',
+    prompt: 'Lluvia de números de camisetas que al caer al suelo húmedo se convierten en semillas de flores de todos los colores posibles.',
+    createdAt: '2025-05-03',
+    incidentType: 'gradas',
+    location: 'Estadio Nemesio Diez, Toluca',
+  },
+];
