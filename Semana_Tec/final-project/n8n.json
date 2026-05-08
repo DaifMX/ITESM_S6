@@ -1,0 +1,172 @@
+{
+  "name": "Cancha Viva - Reporte a Arte Generativo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cancha-viva",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000001",
+      "name": "Webhook - Recibir reporte",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-900, 0],
+      "webhookId": "cancha-viva-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1b2c3d4-0002-0001-0001-000000000001",
+              "name": "descripcion",
+              "value": "={{ $json.body.descripcion || $json.body.description || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "a1b2c3d4-0002-0001-0001-000000000002",
+              "name": "tipoIncidente",
+              "value": "={{ $json.body.tipoIncidente || $json.body.tipo || $json.body.category || 'sin_clasificar' }}",
+              "type": "string"
+            },
+            {
+              "id": "a1b2c3d4-0002-0001-0001-000000000003",
+              "name": "lugar",
+              "value": "={{ $json.body.lugar || $json.body.location || 'No especificado' }}",
+              "type": "string"
+            },
+            {
+              "id": "a1b2c3d4-0002-0001-0001-000000000004",
+              "name": "fechaReporte",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0002-0001-0001-000000000000",
+      "name": "Set - Normalizar reporte",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [-680, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"google/gemini-2.5-flash-lite\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are an art director for Cancha Viva, a digital activism platform against racism in football. Analyze this incident report and respond ONLY with valid JSON (no extra text, no markdown) with exactly these keys: tipo_incidente, intensidad, resumen_publico, prompt_artistico.\\n\\nFor prompt_artistico: write a vivid, cinematic image generation prompt in English for a powerful fine-art painting. The artwork must:\\n- Convey the emotional weight of the incident AND the hope of resistance against it\\n- Use symbolic visual metaphors (fractured light, roots breaking concrete, birds escaping cages, flames and water, shattered chains, blooming in darkness)\\n- Specify a strong color palette that carries emotional meaning (e.g. oppressive dark indigo giving way to warm gold light)\\n- Reference a painterly style (e.g. expressive brushstrokes like Basquiat, chiaroscuro lighting, bold impasto texture, watercolor bleed)\\n- Describe composition and mood with precision\\n- Absolutely NO text, NO letters, NO words, NO logos, NO faces, NO recognizable people in the image\\n- The art must speak through pure visual language\\n\\nIncident report: {{$json.descripcion}}. Location: {{$json.lugar}}. Type: {{$json.tipoIncidente}}\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0003-0001-0001-000000000000",
+      "name": "OpenRouter - Analizar y crear prompt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-440, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.choices?.[0]?.message?.content || $json.response || '';\nlet parsed;\n\ntry {\n  const start = raw.indexOf('{');\n  const end = raw.lastIndexOf('}');\n  parsed = JSON.parse(raw.slice(start, end + 1));\n} catch (e) {\n  parsed = {\n    tipo_incidente: 'sin_clasificar',\n    intensidad: 'media',\n    resumen_publico: 'Reporte transformado en arte generativo contra el racismo en el fútbol.',\n    prompt_artistico: 'abstract generative artwork, resistance against racism in football, stadium lights, green field, hopeful energy, no text, no logos'\n  };\n}\n\nreturn [{\n  json: {\n    ...$input.first().json,\n    analisis: parsed,\n    prompt_artistico: parsed.prompt_artistico\n  }\n}];"
+      },
+      "id": "a1b2c3d4-0004-0001-0001-000000000000",
+      "name": "Code - Parsear respuesta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-200, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"google/gemini-2.5-flash-image\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Create a museum-quality fine art painting with no text, no letters, no words, no logos, no faces, no recognizable people. Pure visual symbolism only. The painting: {{$json.prompt_artistico}}. Style requirements: award-winning fine art, masterful use of light and shadow, rich painterly texture, emotionally powerful composition, gallery-worthy quality. Absolutely no text or typography of any kind anywhere in the image.\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0005-0001-0001-000000000000",
+      "name": "HTTP - Generar imagen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, 0],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const imageResponse = $input.first().json;\nconst parsed = $('Code - Parsear respuesta').first().json;\n\nconst rawUrl = imageResponse.choices?.[0]?.message?.images?.[0]?.image_url?.url || null;\nconst imageBase64 = rawUrl?.startsWith('data:') ? rawUrl.split(',')[1] : (imageResponse.data?.[0]?.b64_json || null);\nconst imageUrl = rawUrl && !rawUrl.startsWith('data:') ? rawUrl : null;\n\nconst obra = {\n  id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16); }),\n  titulo: `Obra Cancha Viva - ${new Date().toISOString().slice(0, 10)}`,\n  fecha: new Date().toISOString(),\n  tipo_incidente: parsed.analisis?.tipo_incidente || 'sin_clasificar',\n  intensidad: parsed.analisis?.intensidad || 'media',\n  lugar: parsed.lugar || 'No especificado',\n  resumen_publico: parsed.analisis?.resumen_publico || '',\n  prompt_artistico: parsed.prompt_artistico || '',\n  imagen_base64: imageBase64,\n  imagen_url: imageUrl\n};\n\nreturn [{ json: obra }];"
+      },
+      "id": "a1b2c3d4-0006-0001-0001-000000000000",
+      "name": "Code - Armar obra final",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [280, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0007-0001-0001-000000000000",
+      "name": "Responder al frontend",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [540, 0]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook - Recibir reporte": {
+      "main": [[{ "node": "Set - Normalizar reporte", "type": "main", "index": 0 }]]
+    },
+    "Set - Normalizar reporte": {
+      "main": [[{ "node": "OpenRouter - Analizar y crear prompt", "type": "main", "index": 0 }]]
+    },
+    "OpenRouter - Analizar y crear prompt": {
+      "main": [[{ "node": "Code - Parsear respuesta", "type": "main", "index": 0 }]]
+    },
+    "Code - Parsear respuesta": {
+      "main": [[{ "node": "HTTP - Generar imagen", "type": "main", "index": 0 }]]
+    },
+    "HTTP - Generar imagen": {
+      "main": [
+        [{ "node": "Code - Armar obra final", "type": "main", "index": 0 }],
+        [{ "node": "Code - Armar obra final", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code - Armar obra final": {
+      "main": [[{ "node": "Responder al frontend", "type": "main", "index": 0 }]]
+    }
+  },
+  "id": "a1b2c3d4-cafe-babe-feed-c0ffee000001",
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a1b2c3d4-cafe-babe-feed-000000000001",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

@@ -1,0 +1,116 @@
+#cloud-config
+users:
+  - name: ${vm_user}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+
+%{ if vm_user_password != "" ~}
+chpasswd:
+  list: |
+    ${vm_user}:${vm_user_password}
+  expire: false
+%{ endif ~}
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: false
+
+packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - unzip
+  - qemu-guest-agent
+
+write_files:
+  # All files are base64-encoded to avoid YAML/shell escaping issues
+  - path: /opt/n8n/compose.yml
+    encoding: b64
+    permissions: "0644"
+    content: ${compose_b64}
+
+  - path: /opt/n8n/nginx.conf
+    encoding: b64
+    permissions: "0644"
+    content: ${nginx_conf_b64}
+
+  - path: /opt/n8n/n8n.json
+    encoding: b64
+    permissions: "0644"
+    content: ${workflow_b64}
+
+  # Pre-built frontend (run `npm run build` locally before terraform apply)
+  - path: /opt/n8n/frontend-dist.zip
+    encoding: b64
+    permissions: "0644"
+    content: ${frontend_dist_b64}
+
+  - path: /opt/n8n/.env
+    permissions: "0600"
+    content: |
+      N8N_ENCRYPTION_KEY=${n8n_encryption_key}
+      OPENROUTER_API_KEY=${openrouter_api_key}
+      N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      POSTGRES_USER=${postgres_user}
+      POSTGRES_PASSWORD=${postgres_password}
+      POSTGRES_DB=${postgres_db}
+      WEBHOOK_URL=${webhook_url}
+      N8N_HOST=0.0.0.0
+
+  - path: /opt/n8n/install.sh
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+
+      # ── Install Docker (official method) ───────────────────────────────────
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+        | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      chmod a+r /etc/apt/keyrings/docker.gpg
+
+      echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+        https://download.docker.com/linux/ubuntu \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" \
+        > /etc/apt/sources.list.d/docker.list
+
+      DEBIAN_FRONTEND=noninteractive apt-get update -y
+      DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        docker-ce docker-ce-cli containerd.io \
+        docker-buildx-plugin docker-compose-plugin
+      systemctl enable --now docker
+
+      # ── Extract frontend dist ──────────────────────────────────────────────
+      unzip -q /opt/n8n/frontend-dist.zip -d /opt/n8n/dist
+
+      # ── Start n8n stack ────────────────────────────────────────────────────
+      cd /opt/n8n
+      docker compose up -d
+
+      # ── Systemd service so n8n survives reboots ────────────────────────────
+      cat > /etc/systemd/system/n8n.service <<'UNIT'
+      [Unit]
+      Description=n8n workflow automation (Docker Compose)
+      After=network-online.target docker.service
+      Wants=network-online.target docker.service
+
+      [Service]
+      Type=oneshot
+      RemainAfterExit=yes
+      WorkingDirectory=/opt/n8n
+      ExecStart=/usr/bin/docker compose up -d
+      ExecStop=/usr/bin/docker compose down
+      TimeoutStartSec=120
+
+      [Install]
+      WantedBy=multi-user.target
+      UNIT
+
+      systemctl daemon-reload
+      systemctl enable n8n.service
+
+runcmd:
+  - systemctl enable --now qemu-guest-agent
+  - bash /opt/n8n/install.sh

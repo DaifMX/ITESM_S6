@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import type { Incident, IncidentType } from '../types';
+import type { Artwork, Incident, IncidentType } from '../types';
 
 const N8N_WEBHOOK = import.meta.env.VITE_N8N_WEBHOOK_URL ?? '';
 
@@ -33,10 +33,34 @@ export default function ReportPage() {
       const res = await fetch(N8N_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          tipoIncidente: form.type,
+          description: form.description,
+          location: form.location,
+          reportedAt: form.reportedAt,
+          reporterName: form.reporterName,
+        }),
       });
 
       if (!res.ok) throw new Error(`Error ${res.status}`);
+
+      try {
+        const obra = await res.json();
+        const artwork: Artwork = {
+          id: obra.id ?? crypto.randomUUID(),
+          imagen_base64: obra.imagen_base64 ?? null,
+          resumen_publico: obra.resumen_publico ?? '',
+          prompt: obra.prompt_artistico ?? '',
+          createdAt: (obra.fecha ?? new Date().toISOString()).slice(0, 10),
+          incidentType: obra.tipo_incidente ?? 'sin_clasificar',
+          location: obra.lugar ?? form.location,
+        };
+        const stored: Artwork[] = JSON.parse(localStorage.getItem('cancha-viva-obras') ?? '[]');
+        localStorage.setItem('cancha-viva-obras', JSON.stringify([artwork, ...stored]));
+      } catch {
+        // el workflow completó pero la respuesta no incluye la obra (ej. SD offline)
+      }
+
       setStatus('success');
     } catch (err) {
       setStatus('error');

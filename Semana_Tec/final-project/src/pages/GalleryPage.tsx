@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ArtCard from '../components/ArtCard';
 import { mockArtworks } from '../data/mockArtworks';
-import type { IncidentType } from '../types';
+import type { Artwork, IncidentType } from '../types';
 
-type Filter = 'all' | IncidentType;
+type Filter = 'all' | IncidentType | 'sin_clasificar';
 
 const filters: { value: Filter; label: string }[] = [
   { value: 'all', label: 'Todas' },
@@ -13,12 +13,22 @@ const filters: { value: Filter; label: string }[] = [
   { value: 'redes_sociales', label: 'Redes sociales' },
 ];
 
+function loadRealArtworks(): Artwork[] {
+  try {
+    return JSON.parse(localStorage.getItem('cancha-viva-obras') ?? '[]');
+  } catch {
+    return [];
+  }
+}
+
 export default function GalleryPage() {
   const [active, setActive] = useState<Filter>('all');
+  const [realArtworks] = useState<Artwork[]>(loadRealArtworks);
 
+  const allArtworks = [...realArtworks, ...mockArtworks];
   const visible = active === 'all'
-    ? mockArtworks
-    : mockArtworks.filter(a => a.incidentType === active);
+    ? allArtworks
+    : allArtworks.filter(a => a.incidentType === active);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">

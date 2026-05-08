@@ -10,9 +10,12 @@ export interface Incident {
 
 export interface Artwork {
   id: string;
-  gradient: string;
+  gradient?: string;
+  imagen_base64?: string | null;
+  imagen_url?: string | null;
+  resumen_publico?: string;
   prompt: string;
   createdAt: string;
-  incidentType: IncidentType;
+  incidentType: IncidentType | 'sin_clasificar';
   location: string;
 }

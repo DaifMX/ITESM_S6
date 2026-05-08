@@ -1,0 +1,46 @@
+# Copy this file to _creds.auto.tfvars and fill in your values.
+# _creds.auto.tfvars is gitignored and never committed.
+
+# ── Proxmox connection ────────────────────────────────────────────────────────
+proxmox_api_url      = "https://YOUR-PROXMOX-HOST:8006"
+proxmox_api_token_id = "terraform@pam!terraform=YOUR-TOKEN-SECRET"
+proxmox_tls_insecure = false        # true if using a self-signed cert
+proxmox_node         = "proxmox-node"
+proxmox_ssh_user     = "not-root-please"
+
+# leave commented to use your local SSH agent
+# proxmox_ssh_private_key = <<-EOT
+# -----BEGIN OPENSSH PRIVATE KEY-----
+# b3BlbnNzaC1rZXktdjEAAAAA...
+# -----END OPENSSH PRIVATE KEY-----
+# EOT
+
+# ── VM ────────────────────────────────────────────────────────────────────────
+vm_id        = 0                    # 0 = auto-assign
+vm_name      = "cancha-viva-n8n"
+vm_template  = "ubuntu-cloud"       # name of your cloud-init template
+vm_cores     = 2
+vm_memory    = 8192                 # MiB
+vm_disk_size = 32                   # GiB
+vm_storage   = "local-zfs"
+vm_bridge    = "vmbr0"
+
+vm_user          = "n8n"
+vm_user_password = "changeme"
+vm_ssh_keys      = "ssh-ed25519 AAAA..."  # your public SSH key
+
+vm_ip_address  = "dhcp"
+vm_gateway     = ""
+vm_dns_servers = []
+
+# ── n8n ───────────────────────────────────────────────────────────────────────
+# Generate with: openssl rand -hex 32
+n8n_encryption_key = "GENERATE-WITH-openssl-rand-hex-32"
+openrouter_api_key = 
+
+postgres_user     = "n8n"
+postgres_password = "changeme"
+postgres_db       = "n8n"
+
+# Your Cloudflare tunnel public URL — used to build correct webhook URLs
+webhook_url = "https://n8n.daifo.net"
