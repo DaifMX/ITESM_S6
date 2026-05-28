@@ -1,0 +1,49 @@
+// =====================================================
+// Top 10 Films on Netflix - MongoDB Shell Exercise
+// =====================================================
+
+// Use (or create) the database
+use netflixDB
+
+// -----------------------------------------------------
+// 1. Insert 10 documents into the top10films collection
+// -----------------------------------------------------
+db.top10films.insertMany([
+  { FilmName: "Carry-On",                       WeeksInTop10: 4, HoursViewed: 97600000, Views: 56900000 },
+  { FilmName: "The Electric State",             WeeksInTop10: 3, HoursViewed: 82500000, Views: 41000000 },
+  { FilmName: "Back in Action",                 WeeksInTop10: 5, HoursViewed: 75300000, Views: 39800000 },
+  { FilmName: "Plankton: The Movie",            WeeksInTop10: 2, HoursViewed: 32100000, Views: 18700000 },
+  { FilmName: "The Six Triple Eight",           WeeksInTop10: 6, HoursViewed: 65400000, Views: 33200000 },
+  { FilmName: "Nonnas",                         WeeksInTop10: 9, HoursViewed: 21800000, Views: 12500000 },
+  { FilmName: "Havoc",                          WeeksInTop10: 7, HoursViewed: 54900000, Views: 28600000 },
+  { FilmName: "The Life List",                  WeeksInTop10: 8, HoursViewed: 48200000, Views: 24300000 },
+  { FilmName: "iHostage",                       WeeksInTop10: 1, HoursViewed: 15400000, Views: 8900000  },
+  { FilmName: "Ad Vitam",                       WeeksInTop10: 9, HoursViewed: 38700000, Views: 19100000 }
+])
+
+// -----------------------------------------------------
+// 2. List all documents in the collection
+// -----------------------------------------------------
+db.top10films.find()
+
+// Pretty-printed version
+db.top10films.find().pretty()
+
+// =====================================================
+// Exercises with relational search operators
+// =====================================================
+
+// -----------------------------------------------------
+// a) Documents where WeeksInTop10 is less than 6
+// -----------------------------------------------------
+db.top10films.find({ WeeksInTop10: { $lt: 6 } })
+
+// -----------------------------------------------------
+// b) Documents where HoursViewed is greater than or equal to 5,000,000
+// -----------------------------------------------------
+db.top10films.find({ HoursViewed: { $gte: 5000000 } })
+
+// -----------------------------------------------------
+// c) Documents where WeeksInTop10 is not equal to 9
+// -----------------------------------------------------
+db.top10films.find({ WeeksInTop10: { $ne: 9 } })
