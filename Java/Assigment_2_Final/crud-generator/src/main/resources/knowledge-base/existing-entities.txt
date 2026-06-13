@@ -1,0 +1,31 @@
+EXISTING ENTITIES IN THE PROJECT
+
+Existing entity: Customer
+Table: customers
+Fields:
+- id (Long, primary key)
+- name (String)
+- email (String)
+- phone (String)
+- createdAt (LocalDateTime)
+
+Existing entity: Order
+Table: orders
+Fields:
+- id (Long, primary key)
+- customer (Customer, many-to-one foreign key)
+- total (BigDecimal)
+- status (Enum: PENDING, SHIPPED, DELIVERED)
+- createdAt (LocalDateTime)
+
+Note: new entities should follow the same field naming and primary-key conventions as the
+entities listed above, and reuse Customer / Order via foreign keys where it makes sense.
+
+Existing entity: Product
+Generated from description and stored on (generated at runtime)
+
+Existing entity: Book
+Generated from description and stored on (generated at runtime)
+
+Existing entity: Employee
+Generated from description and stored on (generated at runtime)

@@ -1,0 +1,119 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-06-12T21:19:56.402-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.CrudGeneratorApplication     : Starting CrudGeneratorApplication using Java 21.0.11 with PID 149018 (/home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/target/classes started by daif in /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator)
+2026-06-12T21:19:56.403-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.CrudGeneratorApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-06-12T21:19:56.566-06:00  INFO 149018 --- [crud-generator] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-12T21:19:56.572-06:00  INFO 149018 --- [crud-generator] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 0 JPA repository interfaces.
+2026-06-12T21:19:56.705-06:00  INFO 149018 --- [crud-generator] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-12T21:19:56.709-06:00  INFO 149018 --- [crud-generator] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-12T21:19:56.710-06:00  INFO 149018 --- [crud-generator] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-06-12T21:19:56.723-06:00  INFO 149018 --- [crud-generator] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-12T21:19:56.723-06:00  INFO 149018 --- [crud-generator] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 305 ms
+2026-06-12T21:19:56.735-06:00  INFO 149018 --- [crud-generator] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-12T21:19:56.791-06:00  INFO 149018 --- [crud-generator] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:cruddb user=SA
+2026-06-12T21:19:56.791-06:00  INFO 149018 --- [crud-generator] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-12T21:19:56.795-06:00  INFO 149018 --- [crud-generator] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:cruddb'
+2026-06-12T21:19:56.831-06:00  INFO 149018 --- [crud-generator] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-12T21:19:56.843-06:00  INFO 149018 --- [crud-generator] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-06-12T21:19:56.851-06:00  INFO 149018 --- [crud-generator] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-12T21:19:56.924-06:00  INFO 149018 --- [crud-generator] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-12T21:19:56.936-06:00  WARN 149018 --- [crud-generator] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-12T21:19:57.018-06:00  INFO 149018 --- [crud-generator] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-12T21:19:57.020-06:00  INFO 149018 --- [crud-generator] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-12T21:19:57.024-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.config.OllamaConfig          : Creating Ollama chat model 'qwen2.5:3b' at http://localhost:11434
+2026-06-12T21:19:57.085-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.config.OllamaConfig          : Creating Ollama embedding model 'nomic-embed-text' at http://localhost:11434
+2026-06-12T21:19:57.086-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.config.OllamaConfig          : No persisted store found at /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/data/embedding-store.json — starting with an empty in-memory store
+2026-06-12T21:19:57.092-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.rag.DocumentIngester         : Loaded knowledge-base file: existing-entities.txt (580 chars)
+2026-06-12T21:19:57.092-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.rag.DocumentIngester         : Loaded knowledge-base file: java-conventions.txt (1386 chars)
+2026-06-12T21:20:09.747-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.rag.DocumentIngester         : Ingested 2 knowledge-base document(s) into the vector store
+2026-06-12T21:20:09.759-06:00  WARN 149018 --- [crud-generator] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-12T21:20:09.871-06:00  INFO 149018 --- [crud-generator] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-12T21:20:09.874-06:00  INFO 149018 --- [crud-generator] [           main] com.ai.crud.CrudGeneratorApplication     : Started CrudGeneratorApplication in 13.591 seconds (process running for 13.684)
+2026-06-12T21:20:28.456-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-12T21:20:28.456-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-12T21:20:28.457-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       : RAG retrieved 5 segment(s) for query: "A Product with name, price, category, and stock quantity"
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       :   [1] score=0.769 :: EXISTING ENTITIES IN THE PROJECT Existing entity: Customer Table: customers Fields: - id (Long, primary key) - name (Str...
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       :   [2] score=0.757 :: Note: new entities should follow the same field naming and primary-key conventions as the entities listed above, and reu...
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       :   [3] score=0.744 :: PROJECT JAVA CONVENTIONS Package structure: - Entities live in com.ai.crud.entity - Repositories live in com.ai.crud.rep...
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       :   [4] score=0.741 :: - Controllers live in com.ai.crud.controller Entity rules: - All entities must use the @Entity annotation and @Table(nam...
+2026-06-12T21:20:32.651-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-1] com.ai.crud.agents.RAGContextAgent       :   [5] score=0.737 :: Repository rules: - Repositories are interfaces that extend JpaRepository<Entity, Long>. - Annotate repositories with @R...
+2026-06-12T21:20:46.843-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline START for: A Product with name, price, category, and stock quantity ===
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       : RAG retrieved 5 segment(s) for query: "A Product with name, price, category, and stock quantity"
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       :   [1] score=0.769 :: EXISTING ENTITIES IN THE PROJECT Existing entity: Customer Table: customers Fields: - id (Long, primary key) - name (Str...
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       :   [2] score=0.757 :: Note: new entities should follow the same field naming and primary-key conventions as the entities listed above, and reu...
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       :   [3] score=0.744 :: PROJECT JAVA CONVENTIONS Package structure: - Entities live in com.ai.crud.entity - Repositories live in com.ai.crud.rep...
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       :   [4] score=0.741 :: - Controllers live in com.ai.crud.controller Entity rules: - All entities must use the @Entity annotation and @Table(nam...
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.RAGContextAgent       :   [5] score=0.737 :: Repository rules: - Repositories are interfaces that extend JpaRepository<Entity, Long>. - Annotate repositories with @R...
+2026-06-12T21:20:46.861-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.CodeGeneratorAgent    : Calling chat model to generate CRUD (1685 chars of context)
+2026-06-12T21:21:08.031-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.CodeGeneratorAgent    : Parsed CRUD 'Product' (entity=389 chars, repo=200, service=811, controller=3149)
+2026-06-12T21:21:08.031-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.TestGeneratorAgent    : Generating tests for ProductService (811 chars of source)
+2026-06-12T21:21:09.728-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.OrchestratorAgent     : Appended 'Product' to knowledge base file src/main/resources/knowledge-base/existing-entities.txt
+2026-06-12T21:21:12.210-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.rag.VectorStoreService       : Added 89 chars of new text to the live vector store
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.rag.VectorStoreService       : Persisted vector store to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/data/embedding-store.json
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     :   wrote Entity.java (389 chars)
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     :   wrote Repository.java (200 chars)
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     :   wrote Service.java (811 chars)
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     :   wrote Controller.java (3149 chars)
+2026-06-12T21:21:12.216-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     :   wrote ServiceTest.java (3225 chars)
+2026-06-12T21:21:12.217-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.FileWriterService     : Wrote generated files for 'Product' to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/src/generated/Product
+2026-06-12T21:21:12.217-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-2] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline DONE for: Product ===
+2026-06-12T21:21:25.404-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline START for: A Book with title, author, isbn, publishedYear, and price ===
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       : RAG retrieved 5 segment(s) for query: "A Book with title, author, isbn, publishedYear, and price"
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       :   [1] score=0.737 :: - Controllers live in com.ai.crud.controller Entity rules: - All entities must use the @Entity annotation and @Table(nam...
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       :   [2] score=0.735 :: EXISTING ENTITIES IN THE PROJECT Existing entity: Customer Table: customers Fields: - id (Long, primary key) - name (Str...
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       :   [3] score=0.734 :: PROJECT JAVA CONVENTIONS Package structure: - Entities live in com.ai.crud.entity - Repositories live in com.ai.crud.rep...
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       :   [4] score=0.733 :: Existing entity: Product Generated from description and stored on (generated at runtime)
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.RAGContextAgent       :   [5] score=0.729 :: Repository rules: - Repositories are interfaces that extend JpaRepository<Entity, Long>. - Annotate repositories with @R...
+2026-06-12T21:21:27.350-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.CodeGeneratorAgent    : Calling chat model to generate CRUD (1595 chars of context)
+2026-06-12T21:21:28.998-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.CodeGeneratorAgent    : Parsed CRUD 'Book' (entity=301 chars, repo=81, service=1227, controller=1427)
+2026-06-12T21:21:28.998-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.TestGeneratorAgent    : Generating tests for BookService (1227 chars of source)
+2026-06-12T21:21:30.432-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.OrchestratorAgent     : Appended 'Book' to knowledge base file src/main/resources/knowledge-base/existing-entities.txt
+2026-06-12T21:21:30.446-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.rag.VectorStoreService       : Added 86 chars of new text to the live vector store
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.rag.VectorStoreService       : Persisted vector store to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/data/embedding-store.json
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     :   wrote Entity.java (301 chars)
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     :   wrote Repository.java (81 chars)
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     :   wrote Service.java (1227 chars)
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     :   wrote Controller.java (1427 chars)
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     :   wrote ServiceTest.java (2566 chars)
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.FileWriterService     : Wrote generated files for 'Book' to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/src/generated/Book
+2026-06-12T21:21:30.448-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-4] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline DONE for: Book ===
+2026-06-12T21:21:30.463-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline START for: An Employee with firstName, lastName, email, salary, and hireDate ===
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       : RAG retrieved 5 segment(s) for query: "An Employee with firstName, lastName, email, salary, and hireDate"
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       :   [1] score=0.766 :: EXISTING ENTITIES IN THE PROJECT Existing entity: Customer Table: customers Fields: - id (Long, primary key) - name (Str...
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       :   [2] score=0.758 :: Note: new entities should follow the same field naming and primary-key conventions as the entities listed above, and reu...
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       :   [3] score=0.743 :: Existing entity: Product Generated from description and stored on (generated at runtime)
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       :   [4] score=0.740 :: - Controllers live in com.ai.crud.controller Entity rules: - All entities must use the @Entity annotation and @Table(nam...
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.RAGContextAgent       :   [5] score=0.734 :: Existing entity: Book Generated from description and stored on (generated at runtime)
+2026-06-12T21:21:30.479-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.CodeGeneratorAgent    : Calling chat model to generate CRUD (1208 chars of context)
+2026-06-12T21:21:31.832-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.CodeGeneratorAgent    : Parsed CRUD 'Employee' (entity=556 chars, repo=271, service=612, controller=1115)
+2026-06-12T21:21:31.832-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.TestGeneratorAgent    : Generating tests for EmployeeService (612 chars of source)
+2026-06-12T21:21:33.351-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.OrchestratorAgent     : Appended 'Employee' to knowledge base file src/main/resources/knowledge-base/existing-entities.txt
+2026-06-12T21:21:33.366-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.rag.VectorStoreService       : Added 90 chars of new text to the live vector store
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.rag.VectorStoreService       : Persisted vector store to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/data/embedding-store.json
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     :   wrote Entity.java (556 chars)
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     :   wrote Repository.java (271 chars)
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     :   wrote Service.java (612 chars)
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     :   wrote Controller.java (1115 chars)
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     :   wrote ServiceTest.java (2835 chars)
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.FileWriterService     : Wrote generated files for 'Employee' to /home/daif/Code/ITESM/S6/Java/Assigment_2_Final/crud-generator/src/generated/Employee
+2026-06-12T21:21:33.368-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-6] com.ai.crud.agents.OrchestratorAgent     : === Orchestrator pipeline DONE for: Employee ===
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       : RAG retrieved 5 segment(s) for query: "A Vehicle with make, model, year, and price"
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       :   [1] score=0.766 :: Existing entity: Product Generated from description and stored on (generated at runtime)
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       :   [2] score=0.748 :: Existing entity: Book Generated from description and stored on (generated at runtime)
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       :   [3] score=0.744 :: EXISTING ENTITIES IN THE PROJECT Existing entity: Customer Table: customers Fields: - id (Long, primary key) - name (Str...
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       :   [4] score=0.742 :: Repository rules: - Repositories are interfaces that extend JpaRepository<Entity, Long>. - Annotate repositories with @R...
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.RAGContextAgent       :   [5] score=0.740 :: - Controllers live in com.ai.crud.controller Entity rules: - All entities must use the @Entity annotation and @Table(nam...
+2026-06-12T21:21:54.251-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.CodeGeneratorAgent    : Calling chat model to generate CRUD (1468 chars of context)
+2026-06-12T21:21:55.644-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.CodeGeneratorAgent    : Parsed CRUD 'Vehicle' (entity=219 chars, repo=87, service=872, controller=1505)
+2026-06-12T21:21:55.645-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.CodeGeneratorAgent    : Generating WITHOUT RAG context for: A Vehicle with make, model, year, and price
+2026-06-12T21:21:55.645-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.CodeGeneratorAgent    : Calling chat model to generate CRUD (0 chars of context)
+2026-06-12T21:21:56.930-06:00  INFO 149018 --- [crud-generator] [nio-8080-exec-8] com.ai.crud.agents.CodeGeneratorAgent    : Parsed CRUD 'Vehicle' (entity=188 chars, repo=138, service=1164, controller=983)

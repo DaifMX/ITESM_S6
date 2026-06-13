@@ -1,0 +1,30 @@
+PROJECT JAVA CONVENTIONS
+
+Package structure:
+- Entities live in com.ai.crud.entity
+- Repositories live in com.ai.crud.repository
+- Services live in com.ai.crud.service
+- Controllers live in com.ai.crud.controller
+
+Entity rules:
+- All entities must use the @Entity annotation and @Table(name = "...") with an explicit table name.
+- The primary key is always a Long field named "id".
+- The id uses @Id and @GeneratedValue(strategy = GenerationType.AUTO).
+- Prefer jakarta.persistence.* imports (Spring Boot 3 / Jakarta EE), not javax.persistence.*.
+- Use LocalDateTime for timestamps and BigDecimal for monetary amounts.
+
+Repository rules:
+- Repositories are interfaces that extend JpaRepository<Entity, Long>.
+- Annotate repositories with @Repository.
+
+Service rules:
+- Service classes are annotated with @Service and @Transactional.
+- Services depend on the repository via constructor injection.
+- Provide standard CRUD methods: create, findById, findAll, update, delete.
+- Throw a meaningful exception (e.g. EntityNotFoundException) when an id is not found.
+
+Controller rules:
+- Controllers use @RestController and @RequestMapping("/api/v1/{entity}") where {entity} is the
+  lower-case plural of the entity name (e.g. /api/v1/products).
+- Map CRUD operations to POST, GET (by id and list), PUT, and DELETE.
+- Return ResponseEntity for each endpoint with appropriate HTTP status codes.

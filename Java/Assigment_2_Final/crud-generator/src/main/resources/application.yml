@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: crud-generator
+  # In-memory H2 database used to store generated-entity metadata (no external DB needed).
+  datasource:
+    url: jdbc:h2:mem:cruddb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8080
+
+# Application-specific configuration.
+app:
+  ollama:
+    base-url: http://localhost:11434
+    chat-model: qwen2.5:3b
+    embedding-model: nomic-embed-text
+  vector-store:
+    # Serialized InMemoryEmbeddingStore (Task F.5, Option A: file-backed persistence).
+    path: data/embedding-store.json
+  output-dir: src/generated
+  knowledge-base:
+    existing-entities: src/main/resources/knowledge-base/existing-entities.txt
+
+logging:
+  level:
+    com.ai.crud: INFO
+    dev.langchain4j: WARN
